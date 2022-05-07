@@ -5,7 +5,6 @@ const formSection = document.getElementById("form-section");
 const fullNameInput = document.getElementById("full-name-input");
 const startSection = document.getElementById("start-quiz-section");
 
-
 // global declarations
 const questions = [
   {
@@ -36,10 +35,8 @@ let quizComplete = false;
 let timerId;
 
 const readFromLocalStorage = (key, defaultValue) => {
- 
   const dataFromLS = localStorage.getItem(key);
 
-  
   const parsedData = JSON.parse(dataFromLS);
 
   if (parsedData) {
@@ -50,8 +47,8 @@ const readFromLocalStorage = (key, defaultValue) => {
 };
 
 const onLoad = () => {
-
-  const localStorage = 
+  const localStorage = readFromLocalStorage("high-scores", []);
+  console.log(high - scores);
   // initialise local storage
   // check if highscores exists in LS
   // if false then set highscores to empty array in LS
@@ -80,30 +77,36 @@ const startTimer = () => {
   timerId = setInterval(countdown, 1000);
 };
 
-const validateAnswer = () => {
+const validateAnswer = (event) => {
+  console.log("this was clicked:", event.target.value);
+  console.log("this is the correct answer", questions[questionIndex].answer);
   // get answer clicked from user
+  const selectedAnswer = event.target.value;
   // get the correct answer for question
+  const correctAnswer = questions[questionIndex].answer;
   // compare the 2 answers
+  const correctAnswerSelected = selectedAnswer === correctAnswer;
   // if incorrect subtract 5 seconds from timerValue
   // if incorrect render error alert with message and status
   // if correct render success alert with message and status
   // set timeout for 500ms and then go to next question
+  questionIndex += 1;
+  //Check if the index is now the length of the array of questions
+  //If it is then we know the quiz is over
+  const quizOver = questionIndex === questions.length;
+  if (!correctAnswerSelected) {
+    timerValue -= 5;
+    // if quizOver is true, render GameOver otherwise move to next question
+    quizOver ? renderForm() : setTimeout(renderQuestionSection, 500);
+  } else {
+    // if quizOver is true, render GameOver otherwise move to next question
+    quizOver ? renderForm() : setTimeout(renderQuestionSection, 500);
+  }
   // if question is last question set quizComplete to true and then render form
   // if question is not last question then increment question index and render next question
-  
-// const currentQuestion = questions[questionIndex];
-//   const target = event.target;
+};
 
-//   const currentTarget = (event.currentTarget = currentQuestion.correctAnswer);
-
-//   timerValue -= 5;
-
-
-  questionIndex += 1;
-  renderQuestion();
-
-
-  const handleFormSubmit = () => {
+const handleFormSubmit = () => {
   // get value from input
   // check if empty then render error alert with message and status
   // if not empty then create the score object
@@ -131,12 +134,13 @@ const renderTimerSection = () => {
   timerDiv.appendChild(timerSpan);
 };
 
-const handleClick = (event) => {
-  console.log("handling click from " + event.target);
+const handleClick = () => {
+  console.log("handling click from ", this);
 };
 
 const renderQuestionSection = () => {
   // use HTML as guide and build in JS
+  // mainSection.innerHTML = "";
   //Create Quesiton Section
   const questionSection = document.createElement("section");
   //Create h3 element and give text content of current question
@@ -146,19 +150,20 @@ const renderQuestionSection = () => {
   questionSection.appendChild(question);
   //Loop over question choices and create buttons for each and append to question section
   const currentChoices = questions[questionIndex].choices;
-  console.log(questionIndex, currentChoices);
+
   for (let i = 0; i < currentChoices.length; i++) {
     const button = document.createElement("button");
     button.textContent = currentChoices[i];
-    button.onclick = validateAnswer;
+    button.setAttribute("value", currentChoices[i]);
+    // button.onclick = validateAnswer;
+    button.addEventListener("click", validateAnswer);
     questionSection.appendChild(button);
   }
-  console.log("question section", questionSection);
 
   // append question section to main
   mainSection.appendChild(questionSection);
   // add click event listener on #question-section
-  questionSection.addEventListener("click", handleClick);
+  //questionSection.addEventListener("click", handleClick);
 };
 
 const renderGameOver = () => {
@@ -172,28 +177,30 @@ const renderAlert = (message, status) => {
 };
 
 const renderForm = () => {
+  console.log("Called render form");
+  const finalScore = timerValue;
+  clearInterval(timerId);
+
   // use HTML as guide and build in JS
   // append section to main
   // add submit event handler to form
 
-  const formSection = document.createElement("section")
-  const createForm = document.createElement("form")
+  const scoreDisplay = document.getElementById("form-hs");
+  scoreDisplay.textContent = "Your final score is " + finalScore;
+  formSection.removeAttribute("class");
+  // const createForm = document.createElement("form");
 
   // placeholder for name
 
-  const namePlaceholder = document.getElementById("full-name")
+  //const namePlaceholder = document.getElementById("full-name");
 
-
-  create formSubmit = document.createElement("button")
+  // create formSubmit = document.createElement("button")
   // submit  handler function
-  button.textContent = 
+  //button.textContent = "hjk";
 
   // need to create and render alert
 
   // append to main
-
-
-
 };
 
 const renderQuizCompleteSection = () => {
@@ -220,5 +227,3 @@ const startQuiz = () => {
 
 // add start button click event listener
 startButton.addEventListener("click", startQuiz);
-// document.getElementById("btn").addEventListener("click" () => {
-//   timer -= 5
