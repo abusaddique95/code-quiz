@@ -5,20 +5,30 @@
 .nav-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   padding: 10px 15px;
   text-decoration: none;
 }
 
 .start-quiz-section {
   text-align: center;
+  border: solid white 1px;
 }
 
 .start-btn {
-  color: turquoise;
+  color: #66635b;
   padding: 15px;
   text-decoration: powderblue;
 }
 
 .start-btn.hover {
-  background-color: pink;
+  background-color: #e0a500;
+}
+
+.body {
+  background-color: #4c5760;
+}
+
+.text {
+  color: #d7ceb2;
 }

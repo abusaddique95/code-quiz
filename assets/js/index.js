@@ -1,9 +1,10 @@
 const startButton = document.getElementById("start-quiz-btn");
 const mainSection = document.getElementById("main");
 const questionSection = document.getElementById("question-section");
-const timerSpan = document.getElementById("timer-span");
 const formSection = document.getElementById("form-section");
 const fullNameInput = document.getElementById("full-name-input");
+const startSection = document.getElementById("start-quiz-section");
+
 
 // global declarations
 const questions = [
@@ -32,9 +33,25 @@ const questions = [
 let questionIndex = 0;
 let timerValue = 10 * questions.length;
 let quizComplete = false;
+let timerId;
+
+const readFromLocalStorage = (key, defaultValue) => {
+ 
+  const dataFromLS = localStorage.getItem(key);
+
+  
+  const parsedData = JSON.parse(dataFromLS);
+
+  if (parsedData) {
+    return parsedData;
+  } else {
+    return defaultValue;
+  }
+};
 
 const onLoad = () => {
-  console.log("hello");
+
+  const localStorage = 
   // initialise local storage
   // check if highscores exists in LS
   // if false then set highscores to empty array in LS
@@ -43,15 +60,24 @@ const onLoad = () => {
 const removeStartSection = () => {};
 
 const startTimer = () => {
-  // declare function to execute every 1 sec
   const countdown = () => {
-    // decrement timer value
-    // if quizComplete is true then stop timer
-    // check if timer reaches 0
-    // if true render game over
+    const timerSpan = document.getElementById("timer-span");
+    timerValue -= 1;
+
+    timerSpan.textContent = timerValue;
+
+    if (timerValue === 0) {
+      clearInterval(timerId);
+    }
+
+    //   // decrement timer value
+    //   // if quizComplete is true then stop timer
+    //   // check if timer reaches 0
+    //   // if true render game over
   };
 
   // setInterval of 1000ms (1s)
+  timerId = setInterval(countdown, 1000);
 };
 
 const validateAnswer = () => {
@@ -64,11 +90,20 @@ const validateAnswer = () => {
   // set timeout for 500ms and then go to next question
   // if question is last question set quizComplete to true and then render form
   // if question is not last question then increment question index and render next question
-  questionIndex++;
-  renderQuestionSection();
-};
+  
+// const currentQuestion = questions[questionIndex];
+//   const target = event.target;
 
-const handleFormSubmit = () => {
+//   const currentTarget = (event.currentTarget = currentQuestion.correctAnswer);
+
+//   timerValue -= 5;
+
+
+  questionIndex += 1;
+  renderQuestion();
+
+
+  const handleFormSubmit = () => {
   // get value from input
   // check if empty then render error alert with message and status
   // if not empty then create the score object
@@ -83,6 +118,21 @@ const handleFormSubmit = () => {
 const renderTimerSection = () => {
   // use HTML as guide and build in JS
   // append section to main
+  const timerSection = document.createElement("section");
+  const timerDiv = document.createElement("div");
+  timerDiv.innerText = "Time Left: ";
+  const timerSpan = document.createElement("span");
+  //timerSpan.innerText = "50";
+  // timerSection.setAttribute("id"), "timer-section";
+  timerSpan.setAttribute("id", "timer-span");
+
+  mainSection.appendChild(timerSection);
+  timerSection.appendChild(timerDiv);
+  timerDiv.appendChild(timerSpan);
+};
+
+const handleClick = (event) => {
+  console.log("handling click from " + event.target);
 };
 
 const renderQuestionSection = () => {
@@ -108,7 +158,7 @@ const renderQuestionSection = () => {
   // append question section to main
   mainSection.appendChild(questionSection);
   // add click event listener on #question-section
-  questionSection.addEventListener("click");
+  questionSection.addEventListener("click", handleClick);
 };
 
 const renderGameOver = () => {
@@ -125,6 +175,25 @@ const renderForm = () => {
   // use HTML as guide and build in JS
   // append section to main
   // add submit event handler to form
+
+  const formSection = document.createElement("section")
+  const createForm = document.createElement("form")
+
+  // placeholder for name
+
+  const namePlaceholder = document.getElementById("full-name")
+
+
+  create formSubmit = document.createElement("button")
+  // submit  handler function
+  button.textContent = 
+
+  // need to create and render alert
+
+  // append to main
+
+
+
 };
 
 const renderQuizCompleteSection = () => {
@@ -133,13 +202,17 @@ const renderQuizCompleteSection = () => {
 };
 
 const startQuiz = () => {
-  console.log("start quiz button click");
-  // remove start section
-  startButton.setAttribute("class", "hide");
-  // start timer (tuesday session)
+  // remove start section using .remove() function
+  startSection.remove();
+
   // render timer section
+  renderTimerSection();
+
   // render question section
   renderQuestionSection();
+
+  // start timer (tuesday session)
+  startTimer();
 };
 
 // add event listeners
@@ -147,3 +220,5 @@ const startQuiz = () => {
 
 // add start button click event listener
 startButton.addEventListener("click", startQuiz);
+// document.getElementById("btn").addEventListener("click" () => {
+//   timer -= 5
