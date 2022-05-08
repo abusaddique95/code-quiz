@@ -94,6 +94,9 @@ const validateAnswer = (event) => {
   //If it is then we know the quiz is over
   // if incorrect subtract 5 seconds from timerValue
   const quizOver = questionIndex === questions.length;
+  
+  document.getElementById("question-list").remove
+
   if (!correctAnswerSelected) {
     alert("incorrect answer");
     timerValue -= 5;
@@ -143,7 +146,7 @@ const renderQuestionSection = () => {
   // use HTML as guide and build in JS
   // mainSection.innerHTML = "";
   //Create Quesiton Section
-  const questionSection = document.createElement("section");
+  const questionSection = document.createElement("section" "question-list");
   //Create h3 element and give text content of current question
   const question = document.createElement("h3");
   question.textContent = questions[questionIndex].question;
