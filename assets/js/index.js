@@ -31,24 +31,65 @@ let timerValue = 10 * questions.length;
 let quizComplete = false;
 let timerId;
 
-const readFromLocalStorage = (key, defaultValue) => {
-  const dataFromLS = localStorage.getItem(key);
-
-  const parsedData = JSON.parse(dataFromLS);
-
-  if (parsedData) {
-    return parsedData;
-  } else {
-    return defaultValue;
-  }
-};
-
 const onLoad = () => {
-  const localStorage = readFromLocalStorage("high-scores", []);
-  console.log(high - scores);
   // initialise local storage
+
+  const formComplete = document.getElementById("form-complete");
+
+  const readFromLocalStorage = (key, defaultValue) => {
+    // get from LS using key name
+    const dataFromLS = localStorage.getItem(key);
+
+    // parse data from LS
+    const parsedData = JSON.parse(dataFromLS);
+
+    if (parsedData) {
+      return parsedData;
+    } else {
+      return defaultValue;
+    }
+  };
+
+  const writeToLocalStorage = (key, value) => {
+    // convert value to string
+    const stringifiedValue = JSON.stringify(value);
+
+    // set stringified value to LS for key name
+    localStorage.setItem(key, stringifiedValue);
+  };
   // check if highscores exists in LS
   // if false then set highscores to empty array in LS
+};
+
+const handleFormSubmit = () => {
+  const fullNameInput = document.getElementById("full-name-input");
+  const getScore = document.getElementById("form-hs");
+  // get value from input
+  // check if empty then render error alert with message and status
+
+  if (fullNameInput.value == "") {
+    alert("please fill your details");
+  }
+
+  // if not empty then create the score object
+  const finalScore = {
+    fullNameInput: fullNameInput,
+    getScore: getScore,
+  };
+
+  const finalScores = readFromLocalStorage(finalScores, []);
+  finalScores.push(finalScore);
+
+  writeToLocalStorage("finalScores", finalScore);
+
+  formComplete.addEventListener("submit", handleFormSubmit);
+
+  // {
+  //   fullName: "Bob Smith",
+  //   score: 25
+  // }
+  // push score object to LS
+  // render quizCompleteSection
 };
 
 const removeStartSection = () => {};
@@ -117,17 +158,9 @@ const validateAnswer = (event) => {
   // if question is not last question then increment question index and render next question
 };
 
-const handleFormSubmit = () => {
-  const fullNameInput = document.getElementById("full-name-input");
-  // get value from input
-  // check if empty then render error alert with message and status
-  // if not empty then create the score object
-  // {
-  //   fullName: "Bob Smith",
-  //   score: 25
-  // }
-  // push score object to LS
-  // render quizCompleteSection
+const renderAlert = (message, status) => {
+  // use HTML as guide and build in JS
+  // append div to #question-section
 };
 
 const renderTimerSection = () => {
@@ -198,11 +231,6 @@ const renderGameOver = () => {
   gameOverH2.append(gameOverText);
 };
 
-const renderAlert = (message, status) => {
-  // use HTML as guide and build in JS
-  // append div to #question-section
-};
-
 const renderForm = () => {
   console.log("Called render form");
   clearInterval(timerId);
@@ -215,8 +243,6 @@ const renderForm = () => {
   const scoreDisplay = document.getElementById("form-hs");
   scoreDisplay.textContent = "Your final score is " + finalScore;
   formSection.removeAttribute("class");
-  // append to main
-  // mainSection.append(renderForm);
 };
 
 const renderQuizCompleteSection = () => {
