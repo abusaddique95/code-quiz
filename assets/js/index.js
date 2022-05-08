@@ -70,6 +70,8 @@ const startTimer = () => {
       clearInterval(timerId);
       removeQuestion();
       console.log("RENDER GAME OVER");
+      renderGameOver();
+
       // render game over
     }
 
@@ -179,7 +181,21 @@ const renderQuestionSection = () => {
 
 const renderGameOver = () => {
   // use HTML as guide and build in JS
+  const gameOver = document.createElement("section");
+  gameOver.setAttribute("id", "game-over-section");
+  gameOver.setAttribute("class", "game-over");
+
+  const gameOverH2 = document.createElement("h2");
+  gameOverH2.textContent = "Well done you have completed the quiz";
+
+  const gameOverText = document.createElement("p");
+  gameOverText.textContent = "Share with friends and family";
+
   // append section to main
+
+  mainSection.append(gameOver);
+  gameOver.append(gameOverH2);
+  gameOverH2.append(gameOverText);
 };
 
 const renderAlert = (message, status) => {
