@@ -55,6 +55,7 @@ const onLoad = () => {
 };
 
 const removeStartSection = () => {};
+const removeQuestion = () => {};
 
 const startTimer = () => {
   const countdown = () => {
@@ -86,15 +87,15 @@ const validateAnswer = (event) => {
   const correctAnswer = questions[questionIndex].answer;
   // compare the 2 answers
   const correctAnswerSelected = selectedAnswer === correctAnswer;
-  // if incorrect subtract 5 seconds from timerValue
-  // if incorrect render error alert with message and status
-  // if correct render success alert with message and status
+
   // set timeout for 500ms and then go to next question
   questionIndex += 1;
   //Check if the index is now the length of the array of questions
   //If it is then we know the quiz is over
+  // if incorrect subtract 5 seconds from timerValue
   const quizOver = questionIndex === questions.length;
   if (!correctAnswerSelected) {
+    alert("incorrect answer");
     timerValue -= 5;
     // if quizOver is true, render GameOver otherwise move to next question
     quizOver ? renderForm() : setTimeout(renderQuestionSection, 500);
@@ -188,19 +189,8 @@ const renderForm = () => {
   const scoreDisplay = document.getElementById("form-hs");
   scoreDisplay.textContent = "Your final score is " + finalScore;
   formSection.removeAttribute("class");
-  // const createForm = document.createElement("form");
-
-  // placeholder for name
-
-  //const namePlaceholder = document.getElementById("full-name");
-
-  // create formSubmit = document.createElement("button")
-  // submit  handler function
-  //button.textContent = "hjk";
-
-  // need to create and render alert
-
   // append to main
+  // mainSection.append(renderForm);
 };
 
 const renderQuizCompleteSection = () => {
