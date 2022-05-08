@@ -1,8 +1,5 @@
 const startButton = document.getElementById("start-quiz-btn");
 const mainSection = document.getElementById("main");
-const questionSection = document.getElementById("question-section");
-const formSection = document.getElementById("form-section");
-const fullNameInput = document.getElementById("full-name-input");
 const startSection = document.getElementById("start-quiz-section");
 
 // global declarations
@@ -55,17 +52,25 @@ const onLoad = () => {
 };
 
 const removeStartSection = () => {};
-const removeQuestion = () => {};
+
+const removeQuestion = () => {
+  if (document.getElementById("question-section")) {
+    document.getElementById("question-section").remove();
+  }
+};
 
 const startTimer = () => {
   const countdown = () => {
     const timerSpan = document.getElementById("timer-span");
     timerValue -= 1;
 
-    timerSpan.textContent = timerValue;
+    timerSpan.textContent = timerValue > 0 ? timerValue : 0;
 
-    if (timerValue === 0) {
+    if (timerValue <= 0) {
       clearInterval(timerId);
+      removeQuestion();
+      console.log("RENDER GAME OVER");
+      // render game over
     }
 
     //   // decrement timer value
@@ -94,23 +99,24 @@ const validateAnswer = (event) => {
   //If it is then we know the quiz is over
   // if incorrect subtract 5 seconds from timerValue
   const quizOver = questionIndex === questions.length;
-  
-  document.getElementById("question-list").remove
+
+  removeQuestion();
 
   if (!correctAnswerSelected) {
     alert("incorrect answer");
     timerValue -= 5;
     // if quizOver is true, render GameOver otherwise move to next question
-    quizOver ? renderForm() : setTimeout(renderQuestionSection, 500);
-  } else {
-    // if quizOver is true, render GameOver otherwise move to next question
-    quizOver ? renderForm() : setTimeout(renderQuestionSection, 500);
+  }
+
+  if (timerValue >= 0) {
+    quizOver ? renderForm() : renderQuestionSection();
   }
   // if question is last question set quizComplete to true and then render form
   // if question is not last question then increment question index and render next question
 };
 
 const handleFormSubmit = () => {
+  const fullNameInput = document.getElementById("full-name-input");
   // get value from input
   // check if empty then render error alert with message and status
   // if not empty then create the score object
@@ -146,7 +152,8 @@ const renderQuestionSection = () => {
   // use HTML as guide and build in JS
   // mainSection.innerHTML = "";
   //Create Quesiton Section
-  const questionSection = document.createElement("section" "question-list");
+  const questionSection = document.createElement("section");
+  questionSection.setAttribute("id", "question-section");
   //Create h3 element and give text content of current question
   const question = document.createElement("h3");
   question.textContent = questions[questionIndex].question;
@@ -182,13 +189,13 @@ const renderAlert = (message, status) => {
 
 const renderForm = () => {
   console.log("Called render form");
-  const finalScore = timerValue;
   clearInterval(timerId);
+  const finalScore = timerValue;
 
   // use HTML as guide and build in JS
   // append section to main
   // add submit event handler to form
-
+  const formSection = document.getElementById("form-section");
   const scoreDisplay = document.getElementById("form-hs");
   scoreDisplay.textContent = "Your final score is " + finalScore;
   formSection.removeAttribute("class");

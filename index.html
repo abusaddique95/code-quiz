@@ -1,66 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Code Quiz</title>
-</head>
+  </head>
 
-<body class="body">
-
+  <body class="body">
     <header class="header">
-        <nav class="nav-container">
-            <!-- add anchor tags/ flex container -->
-            <div> <a href="#Home">Home</a></div>
-            <div> <a href="./high-scores.html">High Scores</a></div>
-
-        </nav>
-
+      <nav class="nav-container">
+        <!-- add anchor tags/ flex container -->
+        <div><a href="#Home">Home</a></div>
+        <div><a href="./high-scores.html">High Scores</a></div>
+      </nav>
     </header>
     <main id="main" class="main-section">
-        <!-- needs to disappear on btn click -->
-        <section id="start-quiz-section" class="start-quiz-section">
-            <h1 class="text">Javascript coding challenge quiz</h1>
-            <p class="text">Indulge in our multiple choice quiz to test your javascript knowledge!</p>
-            <button id="start-quiz-btn" class="start-btn">
-                Start Quiz
-            </button>
-        </section>
+      <!-- needs to disappear on btn click -->
+      <section id="start-quiz-section" class="start-quiz-section">
+        <h1 class="text">Javascript coding challenge quiz</h1>
+        <p class="text">
+          Indulge in our multiple choice quiz to test your javascript knowledge!
+        </p>
+        <button id="start-quiz-btn" class="start-btn">Start Quiz</button>
+      </section>
 
-        <section id="question-list">
+      <!-- <section id="question-list">
             <ul class="hide">
                 <li class=hide>this is question 1</li>
                 <li class=hide>this is question 1</li>
                 <li class=hide>this is question 1</li>
                 <li class=hide>this is question 1</li>
             </ul>
-        </section>
+        </section> -->
 
-        <section id="form-section" class='hide'>
-            <form>
-                <div>
-                    <p id='form-hs'>youre score is 25</p>
-                </div>
-                <div id="full-name">
-                    <input id="full-name" type="text" placeholder="Enter full name">
-                </div>
-                <button id='form-btn'>Submit</button>
-            </form>
-        </section>
-
+      <section id="form-section" class="hide">
+        <form>
+          <div>
+            <p id="form-hs">youre score is 25</p>
+          </div>
+          <div id="full-name">
+            <input id="full-name" type="text" placeholder="Enter full name" />
+          </div>
+          <button id="form-btn">Submit</button>
+        </form>
+      </section>
     </main>
 
-
-
-
-
-
-
-
     <script src="./assets/js/index.js"></script>
-</body>
-
+  </body>
 </html>
