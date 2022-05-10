@@ -1,0 +1,63 @@
+.hide {
+  display: none;
+  text-align: center;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+.start-quiz-section {
+  text-align: center;
+  border: solid white 1px;
+}
+
+.start-btn {
+  color: #66635b;
+  padding: 15px;
+  text-decoration: powderblue;
+}
+
+.start-btn.hover {
+  background-color: #e0a500;
+}
+
+.body {
+  background-color: #4c5760;
+}
+
+.text {
+  color: #d7ceb2;
+}
+
+.game-over {
+  text-align: center;
+  align-items: center;
+}
+
+.quiz-complete {
+  text-align: center;
+}
+
+.submit-btn {
+  padding: 10px;
+  border: solid black 3px;
+}
+
+.submit-btn.hover {
+  background: black;
+}
+
+.question-btn {
+  border-radius: 3px;
+  color: blue;
+}
+
+.question-btn.hover {
+  background-color: yellow;
+}
