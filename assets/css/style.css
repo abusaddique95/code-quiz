@@ -1,5 +1,7 @@
 .hide {
   display: none;
+  text-align: center;
+  align-items: center;
 }
 
 .nav-container {
@@ -35,4 +37,18 @@
 
 .game-over {
   text-align: center;
+  align-items: center;
+}
+
+.quiz-complete {
+  text-align: center;
+}
+
+.submit-btn {
+  padding: 10px;
+  border: solid black 3px;
+}
+
+.submit-btn.hover {
+  background: black;
 }

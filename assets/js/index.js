@@ -5,24 +5,24 @@ const startSection = document.getElementById("start-quiz-section");
 // global declarations
 const questions = [
   {
-    question: "Whats the answer to number 1?",
-    choices: ["One", "Two", "Three", "Four"],
-    answer: "One",
+    question: "Who won the Euro 2020 football competition?",
+    choices: ["England", "France", "Italy", "Spain"],
+    answer: "Italy",
   },
   {
-    question: "Whats the answer to number 2?",
-    choices: ["One", "Two", "Three", "Four"],
-    answer: "Two",
+    question: "When did world war 2 end?",
+    choices: ["1939", "1945", "1935", "1943"],
+    answer: "1945",
   },
   {
-    question: "Whats the answer to number 3?",
-    choices: ["One", "Two", "Three", "Four"],
-    answer: "Three",
+    question: "Where did the brand BMW originate?",
+    choices: ["Germany", "Russia", "Italy", "Belgium"],
+    answer: "Germany",
   },
   {
-    question: "Whats the answer to number 4?",
-    choices: ["One", "Two", "Three", "Four"],
-    answer: "Four",
+    question: "How much was the most expensive football shirt ever sold?",
+    choices: ["£10,000", "£7,000,000", "£520,000", "£1500"],
+    answer: "£7,000,000",
   },
 ];
 
@@ -33,8 +33,6 @@ let timerId;
 
 const onLoad = () => {
   // initialise local storage
-
-  const formComplete = document.getElementById("form-complete");
 
   const readFromLocalStorage = (key, defaultValue) => {
     // get from LS using key name
@@ -61,14 +59,14 @@ const onLoad = () => {
   // if false then set highscores to empty array in LS
 };
 
-const handleFormSubmit = () => {
+const handleFormSubmit = (event) => {
+  const formComplete = document.getElementById("form-complete");
   const fullNameInput = document.getElementById("full-name-input");
   const getScore = document.getElementById("form-hs");
-  // get value from input
   // check if empty then render error alert with message and status
 
-  if (fullNameInput.value == "") {
-    alert("please fill your details");
+  if (fullNameInput === "") {
+    alert("please fill in your details");
   }
 
   // if not empty then create the score object
@@ -83,13 +81,8 @@ const handleFormSubmit = () => {
   writeToLocalStorage("finalScores", finalScore);
 
   formComplete.addEventListener("submit", handleFormSubmit);
-
-  // {
-  //   fullName: "Bob Smith",
-  //   score: 25
-  // }
-  // push score object to LS
   // render quizCompleteSection
+  renderQuizCompleteSection();
 };
 
 const removeStartSection = () => {};
@@ -219,10 +212,10 @@ const renderGameOver = () => {
   gameOver.setAttribute("class", "game-over");
 
   const gameOverH2 = document.createElement("h2");
-  gameOverH2.textContent = "Well done you have completed the quiz";
+  gameOverH2.textContent = "It looks like you have ran out of time";
 
   const gameOverText = document.createElement("p");
-  gameOverText.textContent = "Share with friends and family";
+  gameOverText.textContent = "please try again";
 
   // append section to main
 
@@ -236,8 +229,6 @@ const renderForm = () => {
   clearInterval(timerId);
   const finalScore = timerValue;
 
-  // use HTML as guide and build in JS
-  // append section to main
   // add submit event handler to form
   const formSection = document.getElementById("form-section");
   const scoreDisplay = document.getElementById("form-hs");
@@ -247,7 +238,17 @@ const renderForm = () => {
 
 const renderQuizCompleteSection = () => {
   // use HTML as guide and build in JS
+  const quizFinished = document.getElementById("quiz-complete");
+  quizFinished = document.setAttribute("class", "quiz-complete");
+  const finishedText = document.createElement("p");
+  finishedText.textContent = "HURRAYYY!!!";
+  const finishedText2 = document.createElement("p");
+  finishedText2.textContent = "You have successfully completed the quiz";
+
   // append section to main
+  mainSection.append(quizFinished);
+  quizFinished.append(finishedText);
+  finishedText.append(finishedText2);
 };
 
 const startQuiz = () => {
@@ -263,9 +264,6 @@ const startQuiz = () => {
   // start timer (tuesday session)
   startTimer();
 };
-
-// add event listeners
-// add document on load event listener
 
 // add start button click event listener
 startButton.addEventListener("click", startQuiz);
