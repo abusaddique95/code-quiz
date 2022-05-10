@@ -52,3 +52,12 @@
 .submit-btn.hover {
   background: black;
 }
+
+.question-btn {
+  border-radius: 3px;
+  color: blue;
+}
+
+.question-btn.hover {
+  background-color: yellow;
+}
